@@ -6,10 +6,14 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
+import { EncryptionService } from './encryption.service';
 
 @Injectable()
 export class AiProvidersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+  private readonly prisma: PrismaService,
+  private readonly encryptionService: EncryptionService,
+) {}
 
   async create(dto: CreateProviderDto) {
     const existing = await this.prisma.aiProvider.findUnique({
@@ -26,18 +30,25 @@ export class AiProvidersService {
       });
     }
 
-    return this.prisma.aiProvider.create({
-      data: dto,
-    });
+const provider = await this.prisma.aiProvider.create({
+  data: {
+    ...dto,
+    apiKey: this.encryptionService.encrypt(dto.apiKey),
+  },
+});
+
+return this.hideApiKey(provider);
   }
 
-  findAll() {
-    return this.prisma.aiProvider.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-    });
-  }
+ async findAll() {
+  const providers = await this.prisma.aiProvider.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return providers.map((provider) => this.hideApiKey(provider));
+}
 
   async findOne(id: string) {
     const provider = await this.prisma.aiProvider.findUnique({
@@ -82,4 +93,12 @@ export class AiProvidersService {
       message: 'AI provider deleted successfully',
     };
   }
+  private hideApiKey(provider: any) {
+  const { apiKey, ...safeProvider } = provider;
+
+  return {
+    ...safeProvider,
+    apiKeyConfigured: !!apiKey,
+  };
+}
 }
