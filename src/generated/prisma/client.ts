@@ -54,3 +54,8 @@ export type Session = Prisma.SessionModel
  * 
  */
 export type Subscription = Prisma.SubscriptionModel
+/**
+ * Model AiProvider
+ * 
+ */
+export type AiProvider = Prisma.AiProviderModel

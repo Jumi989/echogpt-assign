@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
+import { AiProvidersModule } from './ai-providers/ai-providers.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,6 +16,7 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
     AuthModule,
     UsersModule,
     SubscriptionsModule,
+    AiProvidersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
