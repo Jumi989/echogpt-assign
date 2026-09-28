@@ -33,6 +33,26 @@ export class AiProvidersController {
     return this.aiProvidersService.findAll();
   }
 
+  @Patch(':id/enable')
+  enable(@Param('id') id: string) {
+    return this.aiProvidersService.enable(id);
+  }
+
+  @Patch(':id/disable')
+  disable(@Param('id') id: string) {
+    return this.aiProvidersService.disable(id);
+  }
+
+  @Patch(':id/default')
+  setDefault(@Param('id') id: string) {
+    return this.aiProvidersService.setDefault(id);
+  }
+
+  @Get(':id/health')
+  health(@Param('id') id: string) {
+    return this.aiProvidersService.healthCheck(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.aiProvidersService.findOne(id);
