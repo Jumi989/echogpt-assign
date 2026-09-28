@@ -11,6 +11,8 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { Roles } from '../auth/roles.decorator';
+import { RolesGuard } from '../auth/roles.guard';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard)
@@ -42,4 +44,12 @@ export class UsersController {
   deleteAccount(@Request() req: any) {
     return this.usersService.deleteAccount(req.user.sub);
   }
+  @Get('admin-test')
+@UseGuards(RolesGuard)
+@Roles('ADMIN')
+adminTest() {
+  return {
+    message: 'Welcome Admin',
+  };
+}
 }
