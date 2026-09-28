@@ -17,6 +17,7 @@ model User {
   updatedAt DateTime  @updatedAt
 
   sessions  Session[]
+  subscription Subscription?
 }
 
 model Session {
@@ -26,5 +27,18 @@ model Session {
   createdAt    DateTime @default(now())
 
   userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id            String   @id @default(uuid())
+  plan          String   @default("FREE")
+  status        String   @default("ACTIVE")
+  requestLimit  Int      @default(20)
+  requestsUsed  Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
