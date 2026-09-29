@@ -47,3 +47,8 @@ export type ChatHistory = Prisma.ChatHistoryModel
  * 
  */
 export type WebSearch = Prisma.WebSearchModel
+/**
+ * Model ApiUsageLog
+ * 
+ */
+export type ApiUsageLog = Prisma.ApiUsageLogModel

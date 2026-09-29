@@ -20,6 +20,7 @@ model User {
   subscription Subscription?
   chatHistory ChatHistory[]
   webSearches WebSearch[]
+  apiUsageLogs ApiUsageLog[]
 }
 
 model Session {
@@ -70,6 +71,19 @@ model WebSearch {
   id        String   @id @default(uuid())
   query     String
   results   String
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model ApiUsageLog {
+  id        String   @id @default(uuid())
+  action    String
+  provider  String?
+  status    String   @default("SUCCESS")
   createdAt DateTime @default(now())
 
   userId String

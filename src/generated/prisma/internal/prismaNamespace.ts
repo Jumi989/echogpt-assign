@@ -402,7 +402,8 @@ export const ModelName = {
   Subscription: 'Subscription',
   AiProvider: 'AiProvider',
   ChatHistory: 'ChatHistory',
-  WebSearch: 'WebSearch'
+  WebSearch: 'WebSearch',
+  ApiUsageLog: 'ApiUsageLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "subscription" | "aiProvider" | "chatHistory" | "webSearch"
+    modelProps: "user" | "session" | "subscription" | "aiProvider" | "chatHistory" | "webSearch" | "apiUsageLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -866,6 +867,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApiUsageLog: {
+      payload: Prisma.$ApiUsageLogPayload<ExtArgs>
+      fields: Prisma.ApiUsageLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApiUsageLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApiUsageLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        findFirst: {
+          args: Prisma.ApiUsageLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApiUsageLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        findMany: {
+          args: Prisma.ApiUsageLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>[]
+        }
+        create: {
+          args: Prisma.ApiUsageLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        createMany: {
+          args: Prisma.ApiUsageLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApiUsageLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>[]
+        }
+        delete: {
+          args: Prisma.ApiUsageLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        update: {
+          args: Prisma.ApiUsageLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApiUsageLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApiUsageLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApiUsageLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApiUsageLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApiUsageLogPayload>
+        }
+        aggregate: {
+          args: Prisma.ApiUsageLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApiUsageLog>
+        }
+        groupBy: {
+          args: Prisma.ApiUsageLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiUsageLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApiUsageLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApiUsageLogCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -977,6 +1052,18 @@ export const WebSearchScalarFieldEnum = {
 } as const
 
 export type WebSearchScalarFieldEnum = (typeof WebSearchScalarFieldEnum)[keyof typeof WebSearchScalarFieldEnum]
+
+
+export const ApiUsageLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  provider: 'provider',
+  status: 'status',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type ApiUsageLogScalarFieldEnum = (typeof ApiUsageLogScalarFieldEnum)[keyof typeof ApiUsageLogScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1228,6 +1315,7 @@ export type GlobalOmitConfig = {
   aiProvider?: Prisma.AiProviderOmit
   chatHistory?: Prisma.ChatHistoryOmit
   webSearch?: Prisma.WebSearchOmit
+  apiUsageLog?: Prisma.ApiUsageLogOmit
 }
 
 /* Types for Logging */

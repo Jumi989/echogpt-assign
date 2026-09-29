@@ -9,6 +9,7 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { AiProvidersModule } from './ai-providers/ai-providers.module';
 import { ChatModule } from './chat/chat.module';
 import { WebSearchModule } from './web-search/web-search.module';
+import { AdminModule } from './admin/admin.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,6 +22,7 @@ import { WebSearchModule } from './web-search/web-search.module';
     AiProvidersModule,
     ChatModule,
     WebSearchModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

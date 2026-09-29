@@ -99,6 +99,15 @@ export class ChatService {
       },
     });
 
+    await this.prisma.apiUsageLog.create({
+  data: {
+    userId,
+    action: 'CHAT',
+    provider: provider.name,
+    status: 'SUCCESS',
+  },
+});
+
     return {
       ...chat,
       remainingRequests: usage.remainingRequests,

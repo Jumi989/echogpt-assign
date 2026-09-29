@@ -56,7 +56,8 @@ export const ModelName = {
   Subscription: 'Subscription',
   AiProvider: 'AiProvider',
   ChatHistory: 'ChatHistory',
-  WebSearch: 'WebSearch'
+  WebSearch: 'WebSearch',
+  ApiUsageLog: 'ApiUsageLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -147,6 +148,18 @@ export const WebSearchScalarFieldEnum = {
 } as const
 
 export type WebSearchScalarFieldEnum = (typeof WebSearchScalarFieldEnum)[keyof typeof WebSearchScalarFieldEnum]
+
+
+export const ApiUsageLogScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  provider: 'provider',
+  status: 'status',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type ApiUsageLogScalarFieldEnum = (typeof ApiUsageLogScalarFieldEnum)[keyof typeof ApiUsageLogScalarFieldEnum]
 
 
 export const SortOrder = {
