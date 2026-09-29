@@ -1,10 +1,13 @@
 import {
+  BadGatewayException,
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { GoogleGenAI } from '@google/genai';
 import { PrismaService } from '../prisma/prisma.service';
 import { SubscriptionsService } from '../subscriptions/subscriptions.service';
+import { AiProvidersService } from '../ai-providers/ai-providers.service';
 import { ChatDto } from './dto/chat.dto';
 
 @Injectable()
@@ -12,15 +15,10 @@ export class ChatService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly subscriptionsService: SubscriptionsService,
+    private readonly aiProvidersService: AiProvidersService,
   ) {}
 
   async sendMessage(userId: string, dto: ChatDto) {
-    const usage = await this.subscriptionsService.useRequest(userId);
-
-    if (!usage.allowed) {
-      throw new BadRequestException('Request limit reached');
-    }
-
     let provider;
 
     if (dto.providerId) {
@@ -44,8 +42,53 @@ export class ChatService {
       throw new BadRequestException('AI provider is disabled');
     }
 
-    // Temporary response until real AI API integration
-    const response = `AI response from ${provider.name}: ${dto.prompt}`;
+    const subscription =
+      await this.subscriptionsService.getSubscription(userId);
+
+    if (
+      subscription.requestsUsed >=
+      subscription.requestLimit
+    ) {
+      throw new BadRequestException('Request limit reached');
+    }
+
+    if (provider.name.toLowerCase() !== 'gemini') {
+      throw new BadRequestException(
+        `${provider.name} API integration is not configured yet`,
+      );
+    }
+
+    const apiKey =
+      await this.aiProvidersService.getDecryptedApiKey(
+        provider.id,
+      );
+
+    let response: string;
+
+    try {
+      const ai = new GoogleGenAI({
+        apiKey,
+      });
+
+      const result = await ai.models.generateContent({
+        model: 'gemini-3.5-flash-lite',
+        contents: dto.prompt,
+      });
+
+      response = result.text?.trim() || 'No response generated';
+    } catch (error: any) {
+      console.error(
+        'Gemini API error:',
+        error?.message || error,
+      );
+
+      throw new BadGatewayException(
+        'Failed to get response from Gemini',
+      );
+    }
+
+    const usage =
+      await this.subscriptionsService.useRequest(userId);
 
     const chat = await this.prisma.chatHistory.create({
       data: {
