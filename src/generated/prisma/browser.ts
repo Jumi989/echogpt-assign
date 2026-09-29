@@ -52,3 +52,8 @@ export type WebSearch = Prisma.WebSearchModel
  * 
  */
 export type ApiUsageLog = Prisma.ApiUsageLogModel
+/**
+ * Model Role
+ * 
+ */
+export type Role = Prisma.RoleModel

@@ -12,7 +12,8 @@ model User {
   email     String    @unique
   password  String
   name      String?
-  role      String    @default("USER")
+  roleId String
+  role   Role   @relation(fields: [roleId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -21,6 +22,7 @@ model User {
   chatHistory ChatHistory[]
   webSearches WebSearch[]
   apiUsageLogs ApiUsageLog[]
+  @@index([roleId])
 }
 
 model Session {
@@ -90,4 +92,12 @@ model ApiUsageLog {
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
+}
+
+model Role {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  users User[]
 }
