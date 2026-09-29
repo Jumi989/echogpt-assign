@@ -9,13 +9,31 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChatService } from './chat.service';
 import { ChatDto } from './dto/chat.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiProtected } from '../common/swagger/swagger.decorators';
+import {
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
 @ApiTags('Chat')
-@ApiBearerAuth()
+@ApiProtected()
 @Controller('chat')
 @UseGuards(JwtAuthGuard)
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
+
+  @ApiOkResponse({
+  description: 'AI response generated successfully',
+  schema: {
+    example: {
+      id: 'uuid',
+      prompt: 'Explain blockchain',
+      response: 'Blockchain is a distributed digital ledger...',
+      providerName: 'Gemini',
+      remainingRequests: 17,
+    },
+  },
+})
 
   @Post()
   sendMessage(

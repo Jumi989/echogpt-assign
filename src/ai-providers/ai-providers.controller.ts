@@ -14,9 +14,10 @@ import { RolesGuard } from '../auth/roles.guard';
 import { AiProvidersService } from './ai-providers.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiAdminProtected } from '../common/swagger/swagger.decorators';
 @ApiTags('AI Providers')
-@ApiBearerAuth()
+@ApiAdminProtected()
 @Controller('ai-providers')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('ADMIN')
@@ -49,7 +50,19 @@ export class AiProvidersController {
   setDefault(@Param('id') id: string) {
     return this.aiProvidersService.setDefault(id);
   }
-
+@ApiOkResponse({
+  description: 'AI provider health status',
+  schema: {
+    example: {
+      provider: 'Gemini',
+      status: 'HEALTHY',
+      healthy: true,
+      statusCode: 200,
+      responseTimeMs: 350,
+      apiKeyConfigured: true,
+    },
+  },
+})
   @Get(':id/health')
   health(@Param('id') id: string) {
     return this.aiProvidersService.healthCheck(id);

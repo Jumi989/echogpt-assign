@@ -391,6 +391,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type UserListRelationFilter = {
   every?: Prisma.UserWhereInput
   some?: Prisma.UserWhereInput
@@ -475,10 +480,12 @@ export type UserCreateNestedOneWithoutApiUsageLogsInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutApiUsageLogsNestedInput = {
+export type UserUpdateOneWithoutApiUsageLogsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutApiUsageLogsInput, Prisma.UserUncheckedCreateWithoutApiUsageLogsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutApiUsageLogsInput
   upsert?: Prisma.UserUpsertWithoutApiUsageLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApiUsageLogsInput, Prisma.UserUpdateWithoutApiUsageLogsInput>, Prisma.UserUncheckedUpdateWithoutApiUsageLogsInput>
 }

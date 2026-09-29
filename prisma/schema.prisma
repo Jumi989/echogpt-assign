@@ -82,16 +82,21 @@ model WebSearch {
 }
 
 model ApiUsageLog {
-  id        String   @id @default(uuid())
-  action    String
-  provider  String?
-  status    String   @default("SUCCESS")
-  createdAt DateTime @default(now())
+  id         String   @id @default(uuid())
+  action     String
+  provider   String?
+  method     String?
+  path       String?
+  status     String   @default("SUCCESS")
+  statusCode Int?
+  durationMs Int?
+  createdAt  DateTime @default(now())
 
-  userId String
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String?
+  user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([userId, createdAt])
+  @@index([createdAt])
 }
 
 model Role {

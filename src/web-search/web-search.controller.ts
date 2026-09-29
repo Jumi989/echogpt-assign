@@ -10,9 +10,11 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { SearchDto } from './dto/search.dto';
 import { WebSearchService } from './web-search.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
+import { ApiProtected } from '../common/swagger/swagger.decorators';
+
 @ApiTags('Web Search')
-@ApiBearerAuth()
+@ApiProtected()
 @Controller('web-search')
 @UseGuards(JwtAuthGuard)
 export class WebSearchController {

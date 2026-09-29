@@ -11,12 +11,17 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { RegisterDto } from './dto/register.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+@ApiBearerAuth()
 @ApiTags('Authentication')
 @Controller('auth')
-
+@ApiBearerAuth()
 @Controller('auth')
+
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -25,6 +30,22 @@ export class AuthController {
     return this.authService.register(dto);
   }
 
+  @ApiOkResponse({
+  description: 'User logged in successfully',
+  schema: {
+    example: {
+      message: 'Login successful',
+      accessToken: 'eyJ...',
+      refreshToken: 'eyJ...',
+      user: {
+        id: 'uuid',
+        email: 'user@example.com',
+        name: 'Example User',
+        role: 'USER',
+      },
+    },
+  },
+})
   @Post('login')
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);

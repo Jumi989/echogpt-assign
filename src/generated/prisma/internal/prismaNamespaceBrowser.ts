@@ -155,7 +155,11 @@ export const ApiUsageLogScalarFieldEnum = {
   id: 'id',
   action: 'action',
   provider: 'provider',
+  method: 'method',
+  path: 'path',
   status: 'status',
+  statusCode: 'statusCode',
+  durationMs: 'durationMs',
   createdAt: 'createdAt',
   userId: 'userId'
 } as const

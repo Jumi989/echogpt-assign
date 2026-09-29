@@ -10,6 +10,8 @@ import { AiProvidersModule } from './ai-providers/ai-providers.module';
 import { ChatModule } from './chat/chat.module';
 import { WebSearchModule } from './web-search/web-search.module';
 import { AdminModule } from './admin/admin.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { RequestLoggingInterceptor } from './common/interceptors/request-logging.interceptor';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,6 +27,12 @@ import { AdminModule } from './admin/admin.module';
     AdminModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+  AppService,
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: RequestLoggingInterceptor,
+  },
+],
 })
 export class AppModule {}

@@ -166,35 +166,115 @@ export class AiProvidersService {
     };
   }
 
-  async healthCheck(id: string) {
-    const provider = await this.getRawProvider(id);
+async healthCheck(id: string) {
+  const provider = await this.getRawProvider(id);
 
-    if (!provider.enabled) {
-      return {
-        provider: provider.name,
-        status: 'DISABLED',
-        healthy: false,
-      };
-    }
-
-    try {
-      const apiKey = this.encryptionService.decrypt(provider.apiKey);
-
-      return {
-        provider: provider.name,
-        status: apiKey ? 'HEALTHY' : 'UNHEALTHY',
-        healthy: !!apiKey,
-        apiKeyConfigured: !!apiKey,
-      };
-    } catch {
-      return {
-        provider: provider.name,
-        status: 'UNHEALTHY',
-        healthy: false,
-        apiKeyConfigured: false,
-      };
-    }
+  if (!provider.enabled) {
+    return {
+      provider: provider.name,
+      status: 'DISABLED',
+      healthy: false,
+    };
   }
+
+  let apiKey: string;
+
+  try {
+    apiKey = this.encryptionService.decrypt(provider.apiKey);
+  } catch {
+    return {
+      provider: provider.name,
+      status: 'INVALID_CREDENTIAL_STORAGE',
+      healthy: false,
+    };
+  }
+
+  const providerName = provider.name.toLowerCase();
+  const startTime = Date.now();
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+
+  try {
+    let response: Response;
+
+    // Google Gemini
+    if (
+      providerName === 'gemini' ||
+      providerName.includes('google')
+    ) {
+      response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`,
+        {
+          method: 'GET',
+          signal: controller.signal,
+        },
+      );
+    }
+
+    // OpenAI
+    else if (providerName === 'openai') {
+      response = await fetch(
+        'https://api.openai.com/v1/models',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+          signal: controller.signal,
+        },
+      );
+    }
+
+    // Anthropic / Claude
+    else if (
+      providerName === 'claude' ||
+      providerName.includes('anthropic')
+    ) {
+      response = await fetch(
+        'https://api.anthropic.com/v1/models',
+        {
+          method: 'GET',
+          headers: {
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+          },
+          signal: controller.signal,
+        },
+      );
+    }
+
+    else {
+      return {
+        provider: provider.name,
+        status: 'UNSUPPORTED_PROVIDER',
+        healthy: false,
+      };
+    }
+
+    return {
+      provider: provider.name,
+      status: response.ok ? 'HEALTHY' : 'UNHEALTHY',
+      healthy: response.ok,
+      statusCode: response.status,
+      responseTimeMs: Date.now() - startTime,
+      apiKeyConfigured: true,
+    };
+  } catch (error: any) {
+    return {
+      provider: provider.name,
+      status: 'UNREACHABLE',
+      healthy: false,
+      responseTimeMs: Date.now() - startTime,
+      error:
+        error?.name === 'AbortError'
+          ? 'Provider health check timed out'
+          : 'Provider could not be reached',
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
   async getDecryptedApiKey(id: string) {
     const provider = await this.getRawProvider(id);

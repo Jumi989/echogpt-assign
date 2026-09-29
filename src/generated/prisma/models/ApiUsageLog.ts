@@ -20,15 +20,31 @@ export type ApiUsageLogModel = runtime.Types.Result.DefaultSelection<Prisma.$Api
 
 export type AggregateApiUsageLog = {
   _count: ApiUsageLogCountAggregateOutputType | null
+  _avg: ApiUsageLogAvgAggregateOutputType | null
+  _sum: ApiUsageLogSumAggregateOutputType | null
   _min: ApiUsageLogMinAggregateOutputType | null
   _max: ApiUsageLogMaxAggregateOutputType | null
+}
+
+export type ApiUsageLogAvgAggregateOutputType = {
+  statusCode: number | null
+  durationMs: number | null
+}
+
+export type ApiUsageLogSumAggregateOutputType = {
+  statusCode: number | null
+  durationMs: number | null
 }
 
 export type ApiUsageLogMinAggregateOutputType = {
   id: string | null
   action: string | null
   provider: string | null
+  method: string | null
+  path: string | null
   status: string | null
+  statusCode: number | null
+  durationMs: number | null
   createdAt: Date | null
   userId: string | null
 }
@@ -37,7 +53,11 @@ export type ApiUsageLogMaxAggregateOutputType = {
   id: string | null
   action: string | null
   provider: string | null
+  method: string | null
+  path: string | null
   status: string | null
+  statusCode: number | null
+  durationMs: number | null
   createdAt: Date | null
   userId: string | null
 }
@@ -46,18 +66,36 @@ export type ApiUsageLogCountAggregateOutputType = {
   id: number
   action: number
   provider: number
+  method: number
+  path: number
   status: number
+  statusCode: number
+  durationMs: number
   createdAt: number
   userId: number
   _all: number
 }
 
 
+export type ApiUsageLogAvgAggregateInputType = {
+  statusCode?: true
+  durationMs?: true
+}
+
+export type ApiUsageLogSumAggregateInputType = {
+  statusCode?: true
+  durationMs?: true
+}
+
 export type ApiUsageLogMinAggregateInputType = {
   id?: true
   action?: true
   provider?: true
+  method?: true
+  path?: true
   status?: true
+  statusCode?: true
+  durationMs?: true
   createdAt?: true
   userId?: true
 }
@@ -66,7 +104,11 @@ export type ApiUsageLogMaxAggregateInputType = {
   id?: true
   action?: true
   provider?: true
+  method?: true
+  path?: true
   status?: true
+  statusCode?: true
+  durationMs?: true
   createdAt?: true
   userId?: true
 }
@@ -75,7 +117,11 @@ export type ApiUsageLogCountAggregateInputType = {
   id?: true
   action?: true
   provider?: true
+  method?: true
+  path?: true
   status?: true
+  statusCode?: true
+  durationMs?: true
   createdAt?: true
   userId?: true
   _all?: true
@@ -119,6 +165,18 @@ export type ApiUsageLogAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ApiUsageLogAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ApiUsageLogSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ApiUsageLogMinAggregateInputType
@@ -149,6 +207,8 @@ export type ApiUsageLogGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: ApiUsageLogCountAggregateInputType | true
+  _avg?: ApiUsageLogAvgAggregateInputType
+  _sum?: ApiUsageLogSumAggregateInputType
   _min?: ApiUsageLogMinAggregateInputType
   _max?: ApiUsageLogMaxAggregateInputType
 }
@@ -157,10 +217,16 @@ export type ApiUsageLogGroupByOutputType = {
   id: string
   action: string
   provider: string | null
+  method: string | null
+  path: string | null
   status: string
+  statusCode: number | null
+  durationMs: number | null
   createdAt: Date
-  userId: string
+  userId: string | null
   _count: ApiUsageLogCountAggregateOutputType | null
+  _avg: ApiUsageLogAvgAggregateOutputType | null
+  _sum: ApiUsageLogSumAggregateOutputType | null
   _min: ApiUsageLogMinAggregateOutputType | null
   _max: ApiUsageLogMaxAggregateOutputType | null
 }
@@ -187,19 +253,27 @@ export type ApiUsageLogWhereInput = {
   id?: Prisma.StringFilter<"ApiUsageLog"> | string
   action?: Prisma.StringFilter<"ApiUsageLog"> | string
   provider?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  method?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  path?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
   status?: Prisma.StringFilter<"ApiUsageLog"> | string
+  statusCode?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
+  durationMs?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ApiUsageLog"> | Date | string
-  userId?: Prisma.StringFilter<"ApiUsageLog"> | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  userId?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ApiUsageLogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   action?: Prisma.SortOrder
   provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  method?: Prisma.SortOrderInput | Prisma.SortOrder
+  path?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  statusCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  durationMs?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -210,22 +284,32 @@ export type ApiUsageLogWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ApiUsageLogWhereInput | Prisma.ApiUsageLogWhereInput[]
   action?: Prisma.StringFilter<"ApiUsageLog"> | string
   provider?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  method?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  path?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
   status?: Prisma.StringFilter<"ApiUsageLog"> | string
+  statusCode?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
+  durationMs?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ApiUsageLog"> | Date | string
-  userId?: Prisma.StringFilter<"ApiUsageLog"> | string
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  userId?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type ApiUsageLogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   action?: Prisma.SortOrder
   provider?: Prisma.SortOrderInput | Prisma.SortOrder
+  method?: Prisma.SortOrderInput | Prisma.SortOrder
+  path?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  statusCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  durationMs?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ApiUsageLogCountOrderByAggregateInput
+  _avg?: Prisma.ApiUsageLogAvgOrderByAggregateInput
   _max?: Prisma.ApiUsageLogMaxOrderByAggregateInput
   _min?: Prisma.ApiUsageLogMinOrderByAggregateInput
+  _sum?: Prisma.ApiUsageLogSumOrderByAggregateInput
 }
 
 export type ApiUsageLogScalarWhereWithAggregatesInput = {
@@ -235,61 +319,89 @@ export type ApiUsageLogScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"ApiUsageLog"> | string
   action?: Prisma.StringWithAggregatesFilter<"ApiUsageLog"> | string
   provider?: Prisma.StringNullableWithAggregatesFilter<"ApiUsageLog"> | string | null
+  method?: Prisma.StringNullableWithAggregatesFilter<"ApiUsageLog"> | string | null
+  path?: Prisma.StringNullableWithAggregatesFilter<"ApiUsageLog"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"ApiUsageLog"> | string
+  statusCode?: Prisma.IntNullableWithAggregatesFilter<"ApiUsageLog"> | number | null
+  durationMs?: Prisma.IntNullableWithAggregatesFilter<"ApiUsageLog"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ApiUsageLog"> | Date | string
-  userId?: Prisma.StringWithAggregatesFilter<"ApiUsageLog"> | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"ApiUsageLog"> | string | null
 }
 
 export type ApiUsageLogCreateInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutApiUsageLogsInput
+  user?: Prisma.UserCreateNestedOneWithoutApiUsageLogsInput
 }
 
 export type ApiUsageLogUncheckedCreateInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
-  userId: string
+  userId?: string | null
 }
 
 export type ApiUsageLogUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutApiUsageLogsNestedInput
+  user?: Prisma.UserUpdateOneWithoutApiUsageLogsNestedInput
 }
 
 export type ApiUsageLogUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ApiUsageLogCreateManyInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
-  userId: string
+  userId?: string | null
 }
 
 export type ApiUsageLogUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -297,9 +409,13 @@ export type ApiUsageLogUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ApiUsageLogListRelationFilter = {
@@ -316,16 +432,29 @@ export type ApiUsageLogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   action?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  method?: Prisma.SortOrder
+  path?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  statusCode?: Prisma.SortOrder
+  durationMs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type ApiUsageLogAvgOrderByAggregateInput = {
+  statusCode?: Prisma.SortOrder
+  durationMs?: Prisma.SortOrder
 }
 
 export type ApiUsageLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   action?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  method?: Prisma.SortOrder
+  path?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  statusCode?: Prisma.SortOrder
+  durationMs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -334,9 +463,18 @@ export type ApiUsageLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   action?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  method?: Prisma.SortOrder
+  path?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  statusCode?: Prisma.SortOrder
+  durationMs?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type ApiUsageLogSumOrderByAggregateInput = {
+  statusCode?: Prisma.SortOrder
+  durationMs?: Prisma.SortOrder
 }
 
 export type ApiUsageLogCreateNestedManyWithoutUserInput = {
@@ -381,11 +519,23 @@ export type ApiUsageLogUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ApiUsageLogScalarWhereInput | Prisma.ApiUsageLogScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ApiUsageLogCreateWithoutUserInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
 }
 
@@ -393,7 +543,11 @@ export type ApiUsageLogUncheckedCreateWithoutUserInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
 }
 
@@ -430,16 +584,24 @@ export type ApiUsageLogScalarWhereInput = {
   id?: Prisma.StringFilter<"ApiUsageLog"> | string
   action?: Prisma.StringFilter<"ApiUsageLog"> | string
   provider?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  method?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
+  path?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
   status?: Prisma.StringFilter<"ApiUsageLog"> | string
+  statusCode?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
+  durationMs?: Prisma.IntNullableFilter<"ApiUsageLog"> | number | null
   createdAt?: Prisma.DateTimeFilter<"ApiUsageLog"> | Date | string
-  userId?: Prisma.StringFilter<"ApiUsageLog"> | string
+  userId?: Prisma.StringNullableFilter<"ApiUsageLog"> | string | null
 }
 
 export type ApiUsageLogCreateManyUserInput = {
   id?: string
   action: string
   provider?: string | null
+  method?: string | null
+  path?: string | null
   status?: string
+  statusCode?: number | null
+  durationMs?: number | null
   createdAt?: Date | string
 }
 
@@ -447,7 +609,11 @@ export type ApiUsageLogUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -455,7 +621,11 @@ export type ApiUsageLogUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -463,7 +633,11 @@ export type ApiUsageLogUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   action?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  method?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  path?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  statusCode?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationMs?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -473,64 +647,84 @@ export type ApiUsageLogSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   action?: boolean
   provider?: boolean
+  method?: boolean
+  path?: boolean
   status?: boolean
+  statusCode?: boolean
+  durationMs?: boolean
   createdAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["apiUsageLog"]>
 
 export type ApiUsageLogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   action?: boolean
   provider?: boolean
+  method?: boolean
+  path?: boolean
   status?: boolean
+  statusCode?: boolean
+  durationMs?: boolean
   createdAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["apiUsageLog"]>
 
 export type ApiUsageLogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   action?: boolean
   provider?: boolean
+  method?: boolean
+  path?: boolean
   status?: boolean
+  statusCode?: boolean
+  durationMs?: boolean
   createdAt?: boolean
   userId?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }, ExtArgs["result"]["apiUsageLog"]>
 
 export type ApiUsageLogSelectScalar = {
   id?: boolean
   action?: boolean
   provider?: boolean
+  method?: boolean
+  path?: boolean
   status?: boolean
+  statusCode?: boolean
+  durationMs?: boolean
   createdAt?: boolean
   userId?: boolean
 }
 
-export type ApiUsageLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "action" | "provider" | "status" | "createdAt" | "userId", ExtArgs["result"]["apiUsageLog"]>
+export type ApiUsageLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "action" | "provider" | "method" | "path" | "status" | "statusCode" | "durationMs" | "createdAt" | "userId", ExtArgs["result"]["apiUsageLog"]>
 export type ApiUsageLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }
 export type ApiUsageLogIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }
 export type ApiUsageLogIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.ApiUsageLog$userArgs<ExtArgs>
 }
 
 export type $ApiUsageLogPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ApiUsageLog"
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     action: string
     provider: string | null
+    method: string | null
+    path: string | null
     status: string
+    statusCode: number | null
+    durationMs: number | null
     createdAt: Date
-    userId: string
+    userId: string | null
   }, ExtArgs["result"]["apiUsageLog"]>
   composites: {}
 }
@@ -925,7 +1119,7 @@ readonly fields: ApiUsageLogFieldRefs;
  */
 export interface Prisma__ApiUsageLogClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.ApiUsageLog$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ApiUsageLog$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -958,7 +1152,11 @@ export interface ApiUsageLogFieldRefs {
   readonly id: Prisma.FieldRef<"ApiUsageLog", 'String'>
   readonly action: Prisma.FieldRef<"ApiUsageLog", 'String'>
   readonly provider: Prisma.FieldRef<"ApiUsageLog", 'String'>
+  readonly method: Prisma.FieldRef<"ApiUsageLog", 'String'>
+  readonly path: Prisma.FieldRef<"ApiUsageLog", 'String'>
   readonly status: Prisma.FieldRef<"ApiUsageLog", 'String'>
+  readonly statusCode: Prisma.FieldRef<"ApiUsageLog", 'Int'>
+  readonly durationMs: Prisma.FieldRef<"ApiUsageLog", 'Int'>
   readonly createdAt: Prisma.FieldRef<"ApiUsageLog", 'DateTime'>
   readonly userId: Prisma.FieldRef<"ApiUsageLog", 'String'>
 }
@@ -1359,6 +1557,25 @@ export type ApiUsageLogDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many ApiUsageLogs to delete.
    */
   limit?: number
+}
+
+/**
+ * ApiUsageLog.user
+ */
+export type ApiUsageLog$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

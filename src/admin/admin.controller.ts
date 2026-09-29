@@ -7,9 +7,10 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
 import { AdminService } from './admin.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiAdminProtected } from '../common/swagger/swagger.decorators';
 @ApiTags('Admin')
-@ApiBearerAuth()
+@ApiAdminProtected()
 @Controller('admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('ADMIN')
@@ -46,6 +47,17 @@ export class AdminController {
     return this.adminService.logs();
   }
 
+  @ApiOkResponse({
+  description: 'System health information',
+  schema: {
+    example: {
+      status: 'OK',
+      database: 'CONNECTED',
+      uptimeSeconds: 120,
+      timestamp: '2026-09-29T15:30:46.350Z',
+    },
+  },
+})
   @Get('health')
   health() {
     return this.adminService.health();
