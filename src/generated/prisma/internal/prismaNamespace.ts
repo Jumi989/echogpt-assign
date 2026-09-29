@@ -400,7 +400,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Subscription: 'Subscription',
-  AiProvider: 'AiProvider'
+  AiProvider: 'AiProvider',
+  ChatHistory: 'ChatHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "subscription" | "aiProvider"
+    modelProps: "user" | "session" | "subscription" | "aiProvider" | "chatHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -716,6 +717,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ChatHistory: {
+      payload: Prisma.$ChatHistoryPayload<ExtArgs>
+      fields: Prisma.ChatHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChatHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChatHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ChatHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChatHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ChatHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ChatHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ChatHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChatHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ChatHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        update: {
+          args: Prisma.ChatHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChatHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChatHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChatHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChatHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChatHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ChatHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChatHistory>
+        }
+        groupBy: {
+          args: Prisma.ChatHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChatHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChatHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -804,6 +879,18 @@ export const AiProviderScalarFieldEnum = {
 } as const
 
 export type AiProviderScalarFieldEnum = (typeof AiProviderScalarFieldEnum)[keyof typeof AiProviderScalarFieldEnum]
+
+
+export const ChatHistoryScalarFieldEnum = {
+  id: 'id',
+  prompt: 'prompt',
+  response: 'response',
+  providerName: 'providerName',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type ChatHistoryScalarFieldEnum = (typeof ChatHistoryScalarFieldEnum)[keyof typeof ChatHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1053,6 +1140,7 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   subscription?: Prisma.SubscriptionOmit
   aiProvider?: Prisma.AiProviderOmit
+  chatHistory?: Prisma.ChatHistoryOmit
 }
 
 /* Types for Logging */

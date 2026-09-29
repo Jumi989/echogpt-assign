@@ -37,3 +37,8 @@ export type Subscription = Prisma.SubscriptionModel
  * 
  */
 export type AiProvider = Prisma.AiProviderModel
+/**
+ * Model ChatHistory
+ * 
+ */
+export type ChatHistory = Prisma.ChatHistoryModel

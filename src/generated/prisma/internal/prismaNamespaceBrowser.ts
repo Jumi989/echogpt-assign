@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Subscription: 'Subscription',
-  AiProvider: 'AiProvider'
+  AiProvider: 'AiProvider',
+  ChatHistory: 'ChatHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -122,6 +123,18 @@ export const AiProviderScalarFieldEnum = {
 } as const
 
 export type AiProviderScalarFieldEnum = (typeof AiProviderScalarFieldEnum)[keyof typeof AiProviderScalarFieldEnum]
+
+
+export const ChatHistoryScalarFieldEnum = {
+  id: 'id',
+  prompt: 'prompt',
+  response: 'response',
+  providerName: 'providerName',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type ChatHistoryScalarFieldEnum = (typeof ChatHistoryScalarFieldEnum)[keyof typeof ChatHistoryScalarFieldEnum]
 
 
 export const SortOrder = {

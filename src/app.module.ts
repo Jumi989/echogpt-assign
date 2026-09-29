@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { AiProvidersModule } from './ai-providers/ai-providers.module';
+import { ChatModule } from './chat/chat.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,6 +18,7 @@ import { AiProvidersModule } from './ai-providers/ai-providers.module';
     UsersModule,
     SubscriptionsModule,
     AiProvidersModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
