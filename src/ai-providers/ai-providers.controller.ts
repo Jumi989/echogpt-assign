@@ -14,7 +14,9 @@ import { RolesGuard } from '../auth/roles.guard';
 import { AiProvidersService } from './ai-providers.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
-
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@ApiTags('AI Providers')
+@ApiBearerAuth()
 @Controller('ai-providers')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('ADMIN')

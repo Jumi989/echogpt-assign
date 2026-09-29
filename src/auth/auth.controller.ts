@@ -11,6 +11,10 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { RegisterDto } from './dto/register.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+@ApiTags('Authentication')
+@Controller('auth')
 
 @Controller('auth')
 export class AuthController {
@@ -36,9 +40,10 @@ export class AuthController {
     return this.authService.logout(dto.refreshToken);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('me')
-  getProfile(@Request() req: any) {
-    return req.user;
-  }
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Get('me')
+getProfile(@Request() req: any) {
+  return req.user;
+}
 }

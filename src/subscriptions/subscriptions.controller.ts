@@ -7,7 +7,9 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { SubscriptionsService } from './subscriptions.service';
-
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@ApiTags('Subscriptions')
+@ApiBearerAuth()
 @Controller('subscriptions')
 @UseGuards(JwtAuthGuard)
 export class SubscriptionsController {
