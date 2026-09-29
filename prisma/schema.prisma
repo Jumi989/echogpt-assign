@@ -19,6 +19,7 @@ model User {
   sessions  Session[]
   subscription Subscription?
   chatHistory ChatHistory[]
+  webSearches WebSearch[]
 }
 
 model Session {
@@ -63,4 +64,16 @@ model ChatHistory {
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model WebSearch {
+  id        String   @id @default(uuid())
+  query     String
+  results   String
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
 }

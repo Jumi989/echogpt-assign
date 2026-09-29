@@ -401,7 +401,8 @@ export const ModelName = {
   Session: 'Session',
   Subscription: 'Subscription',
   AiProvider: 'AiProvider',
-  ChatHistory: 'ChatHistory'
+  ChatHistory: 'ChatHistory',
+  WebSearch: 'WebSearch'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "subscription" | "aiProvider" | "chatHistory"
+    modelProps: "user" | "session" | "subscription" | "aiProvider" | "chatHistory" | "webSearch"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -791,6 +792,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WebSearch: {
+      payload: Prisma.$WebSearchPayload<ExtArgs>
+      fields: Prisma.WebSearchFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WebSearchFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WebSearchFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        findFirst: {
+          args: Prisma.WebSearchFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WebSearchFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        findMany: {
+          args: Prisma.WebSearchFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>[]
+        }
+        create: {
+          args: Prisma.WebSearchCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        createMany: {
+          args: Prisma.WebSearchCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WebSearchCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>[]
+        }
+        delete: {
+          args: Prisma.WebSearchDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        update: {
+          args: Prisma.WebSearchUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        deleteMany: {
+          args: Prisma.WebSearchDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WebSearchUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WebSearchUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>[]
+        }
+        upsert: {
+          args: Prisma.WebSearchUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WebSearchPayload>
+        }
+        aggregate: {
+          args: Prisma.WebSearchAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWebSearch>
+        }
+        groupBy: {
+          args: Prisma.WebSearchGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebSearchGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WebSearchCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WebSearchCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -891,6 +966,17 @@ export const ChatHistoryScalarFieldEnum = {
 } as const
 
 export type ChatHistoryScalarFieldEnum = (typeof ChatHistoryScalarFieldEnum)[keyof typeof ChatHistoryScalarFieldEnum]
+
+
+export const WebSearchScalarFieldEnum = {
+  id: 'id',
+  query: 'query',
+  results: 'results',
+  createdAt: 'createdAt',
+  userId: 'userId'
+} as const
+
+export type WebSearchScalarFieldEnum = (typeof WebSearchScalarFieldEnum)[keyof typeof WebSearchScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1141,6 +1227,7 @@ export type GlobalOmitConfig = {
   subscription?: Prisma.SubscriptionOmit
   aiProvider?: Prisma.AiProviderOmit
   chatHistory?: Prisma.ChatHistoryOmit
+  webSearch?: Prisma.WebSearchOmit
 }
 
 /* Types for Logging */

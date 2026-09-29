@@ -64,3 +64,8 @@ export type AiProvider = Prisma.AiProviderModel
  * 
  */
 export type ChatHistory = Prisma.ChatHistoryModel
+/**
+ * Model WebSearch
+ * 
+ */
+export type WebSearch = Prisma.WebSearchModel

@@ -201,6 +201,7 @@ export type UserWhereInput = {
   sessions?: Prisma.SessionListRelationFilter
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   chatHistory?: Prisma.ChatHistoryListRelationFilter
+  webSearches?: Prisma.WebSearchListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -214,6 +215,7 @@ export type UserOrderByWithRelationInput = {
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   subscription?: Prisma.SubscriptionOrderByWithRelationInput
   chatHistory?: Prisma.ChatHistoryOrderByRelationAggregateInput
+  webSearches?: Prisma.WebSearchOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -230,6 +232,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.SessionListRelationFilter
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   chatHistory?: Prisma.ChatHistoryListRelationFilter
+  webSearches?: Prisma.WebSearchListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -269,6 +272,7 @@ export type UserCreateInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   chatHistory?: Prisma.ChatHistoryCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -282,6 +286,7 @@ export type UserUncheckedCreateInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   chatHistory?: Prisma.ChatHistoryUncheckedCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -295,6 +300,7 @@ export type UserUpdateInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -308,6 +314,7 @@ export type UserUncheckedUpdateInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -429,6 +436,20 @@ export type UserUpdateOneRequiredWithoutChatHistoryNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChatHistoryInput, Prisma.UserUpdateWithoutChatHistoryInput>, Prisma.UserUncheckedUpdateWithoutChatHistoryInput>
 }
 
+export type UserCreateNestedOneWithoutWebSearchesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebSearchesInput, Prisma.UserUncheckedCreateWithoutWebSearchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebSearchesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWebSearchesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWebSearchesInput, Prisma.UserUncheckedCreateWithoutWebSearchesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWebSearchesInput
+  upsert?: Prisma.UserUpsertWithoutWebSearchesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWebSearchesInput, Prisma.UserUpdateWithoutWebSearchesInput>, Prisma.UserUncheckedUpdateWithoutWebSearchesInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   email: string
@@ -439,6 +460,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   chatHistory?: Prisma.ChatHistoryCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -451,6 +473,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   chatHistory?: Prisma.ChatHistoryUncheckedCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -479,6 +502,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -491,6 +515,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSubscriptionInput = {
@@ -503,6 +528,7 @@ export type UserCreateWithoutSubscriptionInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   chatHistory?: Prisma.ChatHistoryCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -515,6 +541,7 @@ export type UserUncheckedCreateWithoutSubscriptionInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   chatHistory?: Prisma.ChatHistoryUncheckedCreateNestedManyWithoutUserInput
+  webSearches?: Prisma.WebSearchUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -543,6 +570,7 @@ export type UserUpdateWithoutSubscriptionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -555,6 +583,7 @@ export type UserUncheckedUpdateWithoutSubscriptionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   chatHistory?: Prisma.ChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChatHistoryInput = {
@@ -567,6 +596,7 @@ export type UserCreateWithoutChatHistoryInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  webSearches?: Prisma.WebSearchCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChatHistoryInput = {
@@ -579,6 +609,7 @@ export type UserUncheckedCreateWithoutChatHistoryInput = {
   updatedAt?: Date | string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  webSearches?: Prisma.WebSearchUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChatHistoryInput = {
@@ -607,6 +638,7 @@ export type UserUpdateWithoutChatHistoryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChatHistoryInput = {
@@ -619,6 +651,75 @@ export type UserUncheckedUpdateWithoutChatHistoryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  webSearches?: Prisma.WebSearchUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWebSearchesInput = {
+  id?: string
+  email: string
+  password: string
+  name?: string | null
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  chatHistory?: Prisma.ChatHistoryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWebSearchesInput = {
+  id?: string
+  email: string
+  password: string
+  name?: string | null
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  chatHistory?: Prisma.ChatHistoryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWebSearchesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebSearchesInput, Prisma.UserUncheckedCreateWithoutWebSearchesInput>
+}
+
+export type UserUpsertWithoutWebSearchesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWebSearchesInput, Prisma.UserUncheckedUpdateWithoutWebSearchesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWebSearchesInput, Prisma.UserUncheckedCreateWithoutWebSearchesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWebSearchesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWebSearchesInput, Prisma.UserUncheckedUpdateWithoutWebSearchesInput>
+}
+
+export type UserUpdateWithoutWebSearchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  chatHistory?: Prisma.ChatHistoryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWebSearchesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  chatHistory?: Prisma.ChatHistoryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -629,11 +730,13 @@ export type UserUncheckedUpdateWithoutChatHistoryInput = {
 export type UserCountOutputType = {
   sessions: number
   chatHistory: number
+  webSearches: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   chatHistory?: boolean | UserCountOutputTypeCountChatHistoryArgs
+  webSearches?: boolean | UserCountOutputTypeCountWebSearchesArgs
 }
 
 /**
@@ -660,6 +763,13 @@ export type UserCountOutputTypeCountChatHistoryArgs<ExtArgs extends runtime.Type
   where?: Prisma.ChatHistoryWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWebSearchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WebSearchWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -672,6 +782,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   chatHistory?: boolean | Prisma.User$chatHistoryArgs<ExtArgs>
+  webSearches?: boolean | Prisma.User$webSearchesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -710,6 +821,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   chatHistory?: boolean | Prisma.User$chatHistoryArgs<ExtArgs>
+  webSearches?: boolean | Prisma.User$webSearchesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -721,6 +833,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     chatHistory: Prisma.$ChatHistoryPayload<ExtArgs>[]
+    webSearches: Prisma.$WebSearchPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1127,6 +1240,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscription<T extends Prisma.User$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionArgs<ExtArgs>>): Prisma.Prisma__SubscriptionClient<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   chatHistory<T extends Prisma.User$chatHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$chatHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChatHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  webSearches<T extends Prisma.User$webSearchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$webSearchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WebSearchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1620,6 +1734,30 @@ export type User$chatHistoryArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.ChatHistoryScalarFieldEnum | Prisma.ChatHistoryScalarFieldEnum[]
+}
+
+/**
+ * User.webSearches
+ */
+export type User$webSearchesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WebSearch
+   */
+  select?: Prisma.WebSearchSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WebSearch
+   */
+  omit?: Prisma.WebSearchOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WebSearchInclude<ExtArgs> | null
+  where?: Prisma.WebSearchWhereInput
+  orderBy?: Prisma.WebSearchOrderByWithRelationInput | Prisma.WebSearchOrderByWithRelationInput[]
+  cursor?: Prisma.WebSearchWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WebSearchScalarFieldEnum | Prisma.WebSearchScalarFieldEnum[]
 }
 
 /**
